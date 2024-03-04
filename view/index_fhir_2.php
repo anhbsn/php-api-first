@@ -23,12 +23,9 @@
             // Execute the request and store the response
             $response = curl_exec($curl);
 
-            // Check if the request was successful
             if ($response !== false) {
-                // Decode the JSON response
                 $data = json_decode($response, true);
 
-                // Check if decoding was successful
                 if ($data !== null) {
                     // Update resourceType and ID
                     $resourceType = $data['resourceType'];
@@ -39,12 +36,10 @@
                     echo "Error decoding JSON response";
                 }
             } else {
-                // Handle errors
                 $error = curl_error($curl);
                 echo "Error occurred: $error";
             }
 
-            // Close cURL session
             curl_close($curl);
         }
         ?>
