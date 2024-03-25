@@ -25,30 +25,26 @@
             curl_setopt_array(
                 $curl,
                 array(
-                    // CURLOPT_URL => "{$_ENV['CURLOPT_URL']}/Patient/{$patient_id}?_format=json", // API endpoint URL with variable
-                    CURLOPT_URL => "http://210.2.89.199:8080/iFHIR/baseR4/Patient/{$patient_id}?_format=json", // API endpoint URL with variable
+                    // CURLOPT_URL => "{$_ENV['CURLOPT_URL']}/Patient/{$patient_id}?_format=json",
+                    CURLOPT_URL => "http://210.2.89.199:8080/iFHIR/baseR4/Patient/{$patient_id}?_format=json",
                     CURLOPT_RETURNTRANSFER => true, // Return the response as a string instead of outputting it directly
                     CURLOPT_SSL_VERIFYPEER => false, // Disable SSL verification (for demo purposes, consider enabling it in production)
-                    CURLOPT_HTTPAUTH => CURLAUTH_BASIC, // Set authentication method to Basic
-                    CURLOPT_USERPWD => "admin:admin@fhir123", // Set username and password
+                    CURLOPT_HTTPAUTH => CURLAUTH_BASIC,
+                    CURLOPT_USERPWD => "admin:admin@fhir123",
                 )
             );
 
             // Execute the request and store the response
             $response = curl_exec($curl);
 
-            // Check if the request was successful
             if ($response === false) {
-                // Handle errors
                 $error = curl_error($curl);
                 echo "Error occurred: $error";
             } else {
-                // Decode the JSON response
                 $data = json_decode($response, true);
 
                 // Check if decoding was successful
                 if ($data !== null) {
-                    // Update resourceType and ID
                     $resourceType = $data['resourceType'];
                     $id = $data['id'];
                     $name = $data['name'][0]['given'][0] . " " . $data['name'][0]['family'];
