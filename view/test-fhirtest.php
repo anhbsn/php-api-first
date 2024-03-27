@@ -1,14 +1,17 @@
 <script>
     function merge() {
         const patientId = document.getElementById('patient_id').value;
-        const apiUrl = `http://210.2.89.199:8080/iFHIRtest/baseR4/Patient/${patientId}/_history/1?_format=json`;
+        const apiUrl = `http://210.2.89.199/iFHIRtest/baseR4/Patient/${patientId}`;
+        // const apiUrl = `http://210.2.89.199/iFHIR2/baseR4/Patient/${patientId}?_format=json`;
         const outputElement = document.getElementById('resource_id');
         const errorMessage = document.getElementById('error_message');
 
         fetch(apiUrl, {
             method: 'GET',
+            // mode: 'no-cors',
         })
             .then(function (response) {
+                console.log(response);
                 return response.json();
             })
             .then(function (responseJson) {
